@@ -25,6 +25,9 @@ WORKDIR /app
 # Copy the application JAR file from the build environment to the container
 COPY --from=build /app/target/book_my_show-0.0.1-SNAPSHOT.jar .
 
+# Install OpenJDK in the MySQL image
+RUN apt-get update && apt-get install -y openjdk-17-jdk
+
 # Set the root password for MySQL Server
 ENV MYSQL_ROOT_PASSWORD=my-secret-password
 
