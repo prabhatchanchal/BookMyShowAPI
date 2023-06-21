@@ -28,8 +28,14 @@ COPY --from=build /app/target/book_my_show-0.0.1-SNAPSHOT.jar .
 # Set the root password for MySQL Server
 ENV MYSQL_ROOT_PASSWORD=my-secret-password
 
-# Install OpenJDK JRE using yum
-RUN yum update -y && yum install -y java-17-openjdk-headless
+# Use the adoptopenjdk image as the base image for Java runtime
+FROM adoptopenjdk:17-jre-hotspot-buster
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the application JAR file from the previous stage
+COPY --from=build /app/book_my_show-0.0.1-SNAPSHOT.jar .
 
 # Expose the default Spring Boot port
 EXPOSE 8080
