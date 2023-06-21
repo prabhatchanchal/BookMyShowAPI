@@ -35,7 +35,7 @@ FROM openjdk:17-jdk-slim-buster
 WORKDIR /app
 
 # Copy the application JAR file from the previous stage
-COPY --from=build /app/book_my_show-0.0.1-SNAPSHOT.jar .
+COPY --from=0 /app/book_my_show-0.0.1-SNAPSHOT.jar .
 
 # Expose the default Spring Boot port
 EXPOSE 8080
