@@ -23,7 +23,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the application JAR file from the build environment to the container
-COPY --from=build /app/target/my-spring-boot-app.jar .
+COPY --from=build /app/target/application.jar .
 
 # Install MySQL Server
 RUN apt-get update && apt-get install -y mysql-server
@@ -35,4 +35,4 @@ RUN service mysql start && mysql -u root -e "ALTER USER 'root'@'localhost' IDENT
 EXPOSE 8080
 
 # Start the Spring Boot application
-CMD ["java", "-jar", "my-spring-boot-app.jar"]
+CMD ["java", "-jar", "application.jar"]
