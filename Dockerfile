@@ -26,7 +26,7 @@ WORKDIR /app
 COPY --from=build /app/target/book_my_show-0.0.1-SNAPSHOT.jar .
 
 # Use the official OpenJDK JRE image as the base image for Java runtime
-FROM openjdk:17-jre-slim
+FROM openjdk:17-jdk-slim-buster
 
 # Set the working directory inside the container
 WORKDIR /app
