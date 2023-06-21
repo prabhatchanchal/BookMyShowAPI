@@ -16,8 +16,8 @@ COPY src ./src
 # Build the application JAR file
 RUN mvn package -DskipTests
 
-# Use the official OpenJDK 11 image as the base image for the runtime environment
-FROM adoptopenjdk:11-jre-hotspot
+# Use the official OpenJDK 17 image as the base image for the runtime environment
+FROM adoptopenjdk:17-jre-hotspot
 
 # Set the working directory inside the container
 WORKDIR /app
