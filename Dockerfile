@@ -29,7 +29,7 @@ COPY --from=build /app/target/book_my_show-0.0.1-SNAPSHOT.jar .
 ENV MYSQL_ROOT_PASSWORD=my-secret-password
 
 # Use the adoptopenjdk image as the base image for Java runtime
-FROM adoptopenjdk:17-jre-hotspot-buster
+FROM openjdk:17-jdk-slim-buster
 
 # Set the working directory inside the container
 WORKDIR /app
