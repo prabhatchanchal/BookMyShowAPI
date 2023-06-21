@@ -25,7 +25,10 @@ WORKDIR /app
 # Copy the application JAR file from the build environment to the container
 COPY --from=build /app/target/book_my_show-0.0.1-SNAPSHOT.jar .
 
-# Install MySQL Server
+# Install MySQL Server from official MySQL APT repository
+RUN apt-get update && apt-get install -y gnupg
+RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 5072E1F5
+RUN echo "deb http://repo.mysql.com/apt/debian/ buster mysql-8.0" > /etc/apt/sources.list.d/mysql.list
 RUN apt-get update && apt-get install -y mysql-server
 
 # Configure MySQL
