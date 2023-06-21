@@ -16,26 +16,17 @@ COPY src ./src
 # Build the application JAR file
 RUN mvn package -DskipTests
 
-# Use the official MySQL Server image as the base image for the runtime environment
-FROM mysql:8.0
-
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the application JAR file from the build environment to the container
-COPY --from=build /app/target/book_my_show-0.0.1-SNAPSHOT.jar .
-
-# Set the root password for MySQL Server
-ENV MYSQL_ROOT_PASSWORD=my-secret-password
-
-# Use the adoptopenjdk image as the base image for Java runtime
+# Use the official OpenJDK image as the base image for the runtime environment
 FROM openjdk:17-jdk-slim-buster
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the application JAR file from the previous stage
-COPY --from=0 /app/book_my_show-0.0.1-SNAPSHOT.jar .
+# Copy the application JAR file from the build stage to the container
+COPY --from=build /app/target/book_my_show-0.0.1-SNAPSHOT.jar .
+
+# Set the root password for MySQL Server
+ENV MYSQL_ROOT_PASSWORD=my-secret-password
 
 # Expose the default Spring Boot port
 EXPOSE 8080
